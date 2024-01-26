@@ -1,15 +1,15 @@
 package main //Serve per indicare al compilatore che dentro questo package (cartella) c'è una funzione main da cui partire
 import ("fmt"
-)
+"strings")
 
 func main() {
-	//[string] è il tipo della chiave, uint8 è il tipo del valore
-
+	var myRune = 'a'
+	fmt.Printf("\nmyRune = %v", myRune) //myRune = 97
 	
-	
-	test := []string{"a", "b", "c"}
-
-	for indice, elemento:= range test {
-		fmt.Println(indice, elemento)
+	var strSlice = []string{"s","a","l","v","e"}
+	var strBuilder strings.Builder
+	for i := range strSlice{
+		strBuilder.WriteString(strSlice[i])
 	}
+	fmt.Printf("\n%v", strBuilder.String())
 }
