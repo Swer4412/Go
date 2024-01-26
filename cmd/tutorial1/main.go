@@ -1,11 +1,15 @@
 package main //Serve per indicare al compilatore che dentro questo package (cartella) c'è una funzione main da cui partire
 import ("fmt"
-"unicode/utf8")
+)
 
 func main() {
-	foo()
-}
+	//[string] è il tipo della chiave, uint8 è il tipo del valore
 
-func foo(numero int) (int, int) {
-	return numero*2, numero/2
+	
+	
+	test := []string{"a", "b", "c"}
+
+	for indice, elemento:= range test {
+		fmt.Println(indice, elemento)
+	}
 }
