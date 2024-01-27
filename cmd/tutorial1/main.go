@@ -1,15 +1,19 @@
 package main //Serve per indicare al compilatore che dentro questo package (cartella) c'è una funzione main da cui partire
 import ("fmt"
-"strings")
+)
 
 func main() {
-	var myRune = 'a'
-	fmt.Printf("\nmyRune = %v", myRune) //myRune = 97
-	
-	var strSlice = []string{"s","a","l","v","e"}
-	var strBuilder strings.Builder
-	for i := range strSlice{
-		strBuilder.WriteString(strSlice[i])
+	var thing1 = [5]float64{1,2,3,4,5}
+	fmt.Printf("\nMemory location of thing1 is: %p", &thing1)
+	var result [5]float64 = square(&thing1) //Passo indirizzo di memoria
+	fmt.Printf("\nThe result is : %v", result)
+	fmt.Printf("\nThe value of thing1 is : %v", thing1)
+}
+
+func square(thing2 *[5]float64) [5]float64{
+	fmt.Printf("\nMemory location of thing2 is: %p", thing2)
+	for i := range *thing2 {
+		thing2[i] = thing2[i]*thing2[i]
 	}
-	fmt.Printf("\n%v", strBuilder.String())
+	return *thing2
 }
