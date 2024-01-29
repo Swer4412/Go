@@ -1,0 +1,3 @@
+# Richiede di installare NATS-server
+
+go install github.com/nats-io/nats-server/v2@latest
