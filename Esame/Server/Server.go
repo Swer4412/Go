@@ -171,8 +171,8 @@ func (g *Game) IsDraw() bool {
 // Creo una funzione per gestire il gioco
 func (g *Game) Play() {
 	// Invio un messaggio di benvenuto ai giocatori
-	g.SendMessage("Benvenuti al gioco di forza 4!", 0)
-	g.SendMessage("Benvenuti al gioco di forza 4!", 1)
+	g.SendMessage("Benvenuto al gioco di forza 4!", 0)
+	g.SendMessage("Benvenuto al gioco di forza 4!", 1)
 	// Fino a quando il gioco non è finito o in pareggio
 	for !g.IsGameOver() && !g.IsDraw() {
 		// Stampo la griglia di gioco
@@ -218,16 +218,18 @@ func (g *Game) Play() {
 	if g.IsGameOver() {
 		// Ottengo il vincitore
 		winner := g.player[1-g.turn]
+		looser := g.player[g.turn]
 		// Invio un messaggio di congratulazioni al vincitore
 		g.SendMessage(fmt.Sprintf("Complimenti, %s! Hai vinto il gioco!", winner.name), 1-g.turn)
+		g.SendMessage(fmt.Sprintf("Peccato, %s! Hai perso il gioco!", looser.name), g.turn)
 	} else {
 		// Invio un messaggio di pareggio
 		g.SendMessage("Il gioco è finito in pareggio. Nessuno ha vinto.", 0)
 		g.SendMessage("Il gioco è finito in pareggio. Nessuno ha vinto.", 1)
 	}
 	// Invio un messaggio di saluto ai giocatori
-	g.SendMessage("Grazie per aver giocato con me. Arrivederci!", 0)
-	g.SendMessage("Grazie per aver giocato con me. Arrivederci!", 1)
+	g.SendMessage("Il gioco è finito!", 0)
+	g.SendMessage("Il gioco è finito!", 1)
 }
 
 
@@ -241,11 +243,11 @@ func (g *Game) SendMessage(msg string, to int) {
 
 // Creo una funzione per leggere l'input del giocatore di turno
 func (g *Game) ReadInput() (string, error) {
-	// Creo una variabile per l'input
+
 	var input string
 	// Leggo una riga dalla connessione del giocatore di turno
 	_, err := fmt.Fscanln(g.player[g.turn].conn, &input)
-	// Restituisco l'input e l'eventuale errore
+
 	return input, err
 }
 
