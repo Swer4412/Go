@@ -10,31 +10,25 @@ import (
 	"os"
 )
 
-// Definisco le costanti per l'host e la porta del server
+
 const (
 	HOST = "127.0.0.1"
 	PORT = "8080"
-)
 
-// Definisco le costanti per il numero di righe e colonne della griglia
-const (
 	ROWS = 6
 	COLS = 7
 )
 
-// Definisco le costanti per i simboli dei giocatori
 const (
 	PLAYER1 = 'X'
 	PLAYER2 = 'O'
 	EMPTY   = ' '
 )
 
-// Definisco una struttura per rappresentare la griglia del gioco
 type Grid struct {
 	cells [ROWS][COLS]rune // Una matrice di rune per le celle
 }
 
-// Creo una funzione per inizializzare una nuova griglia vuota
 func NewGrid() *Grid {
 	// Creo una nuova griglia
 	grid := &Grid{}
@@ -49,8 +43,7 @@ func NewGrid() *Grid {
 	return grid
 }
 
-// Creo una funzione per stampare la griglia a schermo
-// Creo una funzione per restituire la griglia come stringa
+
 func (grid *Grid) String() string {
 	// Creo una variabile di tipo stringa
 	var s string
@@ -70,7 +63,6 @@ func (grid *Grid) String() string {
 }
 
 
-// Creo una funzione per inserire un disco in una colonna
 func (grid *Grid) Insert(col int, symbol rune) bool {
 	// Se la colonna è fuori dal range
 	if col < 0 || col >= COLS {
@@ -96,7 +88,7 @@ func (grid *Grid) Insert(col int, symbol rune) bool {
 	return false
 }
 
-// Creo una funzione per controllare se la griglia è piena
+
 func (grid *Grid) IsFull() bool {
 	// Per ogni colonna
 	for j := 0; j < COLS; j++ {
@@ -110,7 +102,7 @@ func (grid *Grid) IsFull() bool {
 	return true
 }
 
-// Creo una funzione per controllare se un simbolo ha vinto
+
 func (grid *Grid) HasWon(symbol rune) bool {
 	// Per ogni riga
 	for i := 0; i < ROWS; i++ {
@@ -146,7 +138,6 @@ func (grid *Grid) HasWon(symbol rune) bool {
 	return false
 }
 
-// Creo una funzione per generare una mossa casuale
 func RandomMove() int {
 	// Inizializzo il generatore di numeri casuali
 	rand.Seed(time.Now().UnixNano())
@@ -154,7 +145,7 @@ func RandomMove() int {
 	return rand.Intn(7)
 }
 
-// Creo una funzione principale
+
 func main() {
 	// Creo un listener TCP sulla porta specificata
 	listener, err := net.Listen("tcp", ":"+PORT)

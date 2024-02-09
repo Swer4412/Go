@@ -14,7 +14,6 @@ const (
 	PORT = "8080"
 )
 
-// Creo una funzione principale
 func main() {
 	// Creo una connessione TCP con il server
 	conn, err := net.Dial("tcp", HOST+":"+PORT)

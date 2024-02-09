@@ -1,4 +1,3 @@
-// Importo i pacchetti necessari
 package main
 
 import (
@@ -8,31 +7,26 @@ import (
 	"strings"
 )
 
-// Definisco una costante per la dimensione della griglia di gioco
 const GridSize = 7
 
-// Definisco una struttura per rappresentare una cella della griglia
 type Cell struct {
 	row int    // la riga della cella
 	col int    // la colonna della cella
 	val string // il valore della cella, vuoto o "X" o "O"
 }
 
-// Definisco una struttura per rappresentare un giocatore
 type Player struct {
 	conn net.Conn // la connessione del giocatore
 	name string   // il nome del giocatore
 	sym  string   // il simbolo del giocatore, "X" o "O"
 }
 
-// Definisco una struttura per rappresentare il gioco
 type Game struct {
 	grid   [GridSize][GridSize]Cell // la griglia di gioco
 	player [2]Player                // i due giocatori
 	turn   int                      // il turno di gioco, 0 o 1
 }
 
-// Creo una funzione per inizializzare il gioco
 func NewGame(p1, p2 net.Conn) *Game {
 	// Creo un nuovo gioco
 	g := &Game{}
@@ -51,7 +45,7 @@ func NewGame(p1, p2 net.Conn) *Game {
 	return g
 }
 
-// Creo una funzione per stampare la griglia di gioco
+
 func (g *Game) PrintGrid() {
 	// Creo una variabile per la griglia in formato stringa
 	var grid string
@@ -76,7 +70,6 @@ func (g *Game) PrintGrid() {
 }
 
 
-// Creo una funzione per controllare se una cella è valida
 func (g *Game) IsValidCell(row, col int) bool {
 	// Controllo se la riga e la colonna sono entro i limiti della griglia
 	if row < 0 || row >= GridSize || col < 0 || col >= GridSize {
@@ -90,7 +83,7 @@ func (g *Game) IsValidCell(row, col int) bool {
 	return true
 }
 
-// Creo una funzione per controllare se una mossa è valida
+
 func (g *Game) IsValidMove(col int) bool {
 	// Controllo se la colonna è entro i limiti della griglia
 	if col < 0 || col >= GridSize {
@@ -104,7 +97,6 @@ func (g *Game) IsValidMove(col int) bool {
 	return true
 }
 
-// Creo una funzione per eseguire una mossa
 func (g *Game) MakeMove(col int) {
 	// Ottengo il simbolo del giocatore di turno
 	sym := g.player[g.turn].sym
@@ -120,7 +112,6 @@ func (g *Game) MakeMove(col int) {
 	}
 }
 
-// Creo una funzione per controllare se il gioco è finito
 func (g *Game) IsGameOver() bool {
 	// Controllo se c'è una sequenza di quattro simboli uguali in orizzontale, verticale o diagonale
 	for i := 0; i < GridSize; i++ {
@@ -152,7 +143,7 @@ func (g *Game) IsGameOver() bool {
 	return false
 }
 
-// Creo una funzione per controllare se il gioco è in pareggio
+
 func (g *Game) IsDraw() bool {
 	// Controllo se tutte le celle sono piene
 	for i := 0; i < GridSize; i++ {
@@ -168,7 +159,7 @@ func (g *Game) IsDraw() bool {
 }
 
 
-// Creo una funzione per gestire il gioco
+
 func (g *Game) Play() {
 	// Invio un messaggio di benvenuto ai giocatori
 	g.SendMessage("Benvenuto al gioco di forza 4!", 0)
@@ -234,14 +225,14 @@ func (g *Game) Play() {
 
 
 
-// Creo una funzione per inviare un messaggio a un giocatore
+
 func (g *Game) SendMessage(msg string, to int) {
 	// Scrivo il messaggio sulla connessione del giocatore destinatario
 	fmt.Fprintln(g.player[to].conn, msg)
 }
 
 
-// Creo una funzione per leggere l'input del giocatore di turno
+
 func (g *Game) ReadInput() (string, error) {
 
 	var input string
@@ -251,7 +242,7 @@ func (g *Game) ReadInput() (string, error) {
 	return input, err
 }
 
-// Creo una funzione principale
+
 func main() {
 	// Creo un listener su una porta TCP
 	ln, err := net.Listen("tcp", ":8080")
